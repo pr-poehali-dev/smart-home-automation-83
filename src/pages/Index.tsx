@@ -19,6 +19,9 @@ export default function Index() {
   const scrollThrottleRef = useRef<number>()
 
   useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = 0
+    }
     const timer = setTimeout(() => {
       setIsLoaded(true)
     }, 300)
@@ -229,10 +232,10 @@ export default function Index() {
         className={`relative z-10 flex h-screen overflow-x-auto overflow-y-hidden transition-opacity duration-700 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollSnapType: "x mandatory" }}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollSnapType: "x mandatory", background: "transparent" }}
       >
         {/* Hero Section */}
-        <section className="flex min-h-screen w-screen shrink-0 flex-col items-center justify-center px-6 pt-20 md:px-12">
+        <section className="flex min-h-screen w-screen shrink-0 snap-start flex-col items-center justify-center px-6 pt-20 md:px-12">
           <div className="flex w-full max-w-5xl flex-col items-center text-center">
             <div className="mb-6 inline-block animate-in fade-in slide-in-from-bottom-4 rounded-full border border-white/30 bg-white/15 px-5 py-2 backdrop-blur-md duration-700">
               <p className="font-mono text-sm text-white/90">Выезд мастера в день обращения</p>
