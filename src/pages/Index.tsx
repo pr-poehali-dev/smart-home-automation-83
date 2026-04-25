@@ -5,6 +5,8 @@ import { ServicesSection } from "@/components/sections/services-section"
 import { AboutSection } from "@/components/sections/about-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { PricesSection } from "@/components/sections/prices-section"
+import { WhyUsSection } from "@/components/sections/why-us-section"
+import { FooterSection } from "@/components/sections/footer-section"
 import { MagneticButton } from "@/components/magnetic-button"
 import { useRef, useEffect, useState } from "react"
 
@@ -147,12 +149,12 @@ export default function Index() {
   }, [currentSection])
 
   return (
-    <main className="relative h-screen w-full overflow-hidden bg-background">
+    <main className="relative w-full bg-background">
       <CustomCursor />
       <GrainOverlay />
 
       <div
-        className={`fixed inset-0 z-0 transition-opacity duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-x-0 top-0 z-0 h-screen transition-opacity duration-700 ${isLoaded ? "opacity-100" : "opacity-0"}`}
       >
         <img
           src="https://cdn.poehali.dev/projects/fccd1f75-066f-433c-b607-2341901786ba/bucket/5c9a8937-a4f9-468c-a484-1c0e71e08690.png"
@@ -227,7 +229,7 @@ export default function Index() {
         className={`relative z-10 flex h-screen overflow-x-auto overflow-y-hidden transition-opacity duration-700 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none", scrollSnapType: "x mandatory" }}
       >
         {/* Hero Section */}
         <section className="flex min-h-screen w-screen shrink-0 flex-col justify-end px-6 pb-16 pt-24 md:px-12 md:pb-24">
@@ -275,6 +277,10 @@ export default function Index() {
         <AboutSection scrollToSection={scrollToSection} />
         <ContactSection />
       </div>
+
+      {/* Вертикальные секции ниже горизонтального блока */}
+      <WhyUsSection />
+      <FooterSection />
 
       <style>{`
         div::-webkit-scrollbar {
