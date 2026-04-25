@@ -5,6 +5,7 @@ import { WorkSection } from "@/components/sections/work-section"
 import { ServicesSection } from "@/components/sections/services-section"
 import { AboutSection } from "@/components/sections/about-section"
 import { ContactSection } from "@/components/sections/contact-section"
+import { PricesSection } from "@/components/sections/prices-section"
 import { MagneticButton } from "@/components/magnetic-button"
 import { useRef, useEffect, useState } from "react"
 
@@ -77,7 +78,7 @@ export default function Index() {
       const deltaX = touchStartX.current - touchEndX
 
       if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
-        if (deltaY > 0 && currentSection < 4) {
+        if (deltaY > 0 && currentSection < 5) {
           scrollToSection(currentSection + 1)
         } else if (deltaY < 0 && currentSection > 0) {
           scrollToSection(currentSection - 1)
@@ -147,7 +148,7 @@ export default function Index() {
         const scrollLeft = scrollContainerRef.current.scrollLeft
         const newSection = Math.round(scrollLeft / sectionWidth)
 
-        if (newSection !== currentSection && newSection >= 0 && newSection <= 4) {
+        if (newSection !== currentSection && newSection >= 0 && newSection <= 5) {
           setCurrentSection(newSection)
         }
 
@@ -211,32 +212,41 @@ export default function Index() {
       </div>
 
       <nav
-        className={`fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-6 transition-opacity duration-700 md:px-12 ${
+        className={`fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-4 py-3 transition-opacity duration-700 md:px-10 bg-white/95 backdrop-blur-md shadow-md ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
       >
+        {/* Логотип */}
         <button
           onClick={() => scrollToSection(0)}
-          className="flex items-center gap-2 transition-transform hover:scale-105"
+          className="flex items-center gap-3 transition-transform hover:scale-105"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-foreground/15 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-foreground/25">
-            <span className="font-sans text-xl font-bold text-foreground">М</span>
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a3a6b] transition-all duration-300 hover:scale-110">
+            <span className="font-sans text-2xl font-bold text-white">М</span>
           </div>
-          <span className="font-sans text-xl font-semibold tracking-tight text-foreground">МастерСервис</span>
+          <div className="flex flex-col leading-tight">
+            <span className="font-sans text-lg font-extrabold tracking-tight text-[#1a3a6b]">
+              НАШ <span className="text-[#e87722]">МАСТЕР</span>
+            </span>
+            <span className="font-sans text-[10px] font-medium tracking-widest text-[#1a3a6b]/60 uppercase">
+              — техника в надёжных руках —
+            </span>
+          </div>
         </button>
 
+        {/* Навигация */}
         <div className="hidden items-center gap-8 md:flex">
-          {["Главная", "Работы", "Услуги", "О нас", "Контакты"].map((item, index) => (
+          {["Главная", "Работы", "Услуги", "Цены", "О нас", "Контакты"].map((item, index) => (
             <button
               key={item}
               onClick={() => scrollToSection(index)}
-              className={`group relative font-sans text-sm font-medium transition-colors ${
-                currentSection === index ? "text-foreground" : "text-foreground/80 hover:text-foreground"
+              className={`group relative font-sans text-sm font-semibold transition-colors ${
+                currentSection === index ? "text-[#e87722]" : "text-[#1a3a6b] hover:text-[#e87722]"
               }`}
             >
               {item}
               <span
-                className={`absolute -bottom-1 left-0 h-px bg-foreground transition-all duration-300 ${
+                className={`absolute -bottom-1 left-0 h-0.5 bg-[#e87722] transition-all duration-300 ${
                   currentSection === index ? "w-full" : "w-0 group-hover:w-full"
                 }`}
               />
@@ -244,9 +254,20 @@ export default function Index() {
           ))}
         </div>
 
-        <MagneticButton variant="secondary" onClick={() => scrollToSection(4)}>
-          Вызвать мастера
-        </MagneticButton>
+        {/* Телефон + кнопка */}
+        <div className="flex items-center gap-4">
+          <div className="hidden flex-col text-right leading-tight md:flex">
+            <a href="tel:+79105587949" className="font-sans text-base font-bold text-[#1a3a6b] hover:text-[#e87722] transition-colors">
+              +7 (910) 558-79-49
+            </a>
+            <span className="font-sans text-[11px] text-[#1a3a6b]/60">Ежедневно с 8:00 до 21:00</span>
+          </div>
+          <MagneticButton variant="secondary" onClick={() => scrollToSection(5)}
+            className="!bg-[#e87722] !text-white hover:!bg-[#d06a1a] !border-[#e87722]"
+          >
+            Вызвать мастера
+          </MagneticButton>
+        </div>
       </nav>
 
       <div
@@ -277,7 +298,7 @@ export default function Index() {
               <MagneticButton
                 size="lg"
                 variant="primary"
-                onClick={() => scrollToSection(4)}
+                onClick={() => scrollToSection(5)}
               >
                 Вызвать мастера
               </MagneticButton>
@@ -299,6 +320,7 @@ export default function Index() {
 
         <WorkSection />
         <ServicesSection />
+        <PricesSection scrollToSection={scrollToSection} />
         <AboutSection scrollToSection={scrollToSection} />
         <ContactSection />
       </div>

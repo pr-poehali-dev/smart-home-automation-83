@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Отправка заявки",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван Петров",
+        "email": "ivan@test.ru",
+        "message": "Не работает стиральная машина Samsung"
+      },
+      "expectedStatus": 200
+    },
+    {
+      "name": "Пустые поля",
+      "method": "POST",
+      "path": "/",
+      "body": { "name": "", "email": "", "message": "" },
+      "expectedStatus": 400
+    }
+  ]
+}
